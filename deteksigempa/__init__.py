@@ -25,16 +25,22 @@ def ekstrasi_data():
         kedalaman = None
         koordinat = None
         lokasi = None
+        dirasakan = None
 
         for res in result3:
-            print(i, res)
+            # print(i, res)
             if i == 1:
                 magnitudo = res.text
             elif i == 2:
                 kedalaman = res.text
             elif i == 3:
-
-
+                koordinat = res.text.split(' - ')
+                ls = koordinat[0]
+                bt = koordinat[1]
+            elif i == 4:
+                lokasi = res.text
+            elif i == 5:
+                dirasakan = res.text
             i = i + 1
 
         hasil = dict()
@@ -42,9 +48,9 @@ def ekstrasi_data():
         hasil['waktu'] = waktu
         hasil['magnitudo'] = magnitudo
         hasil['kedalaman'] = kedalaman
-        hasil['koordinat'] = {'ls':7.77, 'bt': 111.98}
-        hasil['lokasi'] = 'Pusat gempa berada di darat 9 km BaratLaut Kota Kediri'
-        hasil['dirasakan'] = 'Dirasakan (Skala MMI): II Kediri, II Barong, II Nganjuk'
+        hasil['koordinat'] = {'ls':ls, 'bt':bt}
+        hasil['lokasi'] = lokasi
+        hasil['dirasakan'] = dirasakan
 
         return hasil
     else:
@@ -66,9 +72,9 @@ def tampilkan_data(result):
     print(f"Waktu {result['waktu']}")
     print(f"Magnitudo: {result['magnitudo']}")
     print(f"Kedalaman {result['kedalaman']}")
-    print(f"Lokasi: LS={result['lokasi']['ls']}, BT={result['lokasi']['bt']}")
-    print(f"Pusat Gempa {result['pusat_gempa']}")
-    print(f"Dirasakan {result['dirasakan']}")
+    print(f"Koordinat: LS={result['koordinat']['ls']}, BT={result['koordinat']['bt']}")
+    print(f"Lokasi {result['lokasi']}")
+    print(f"{result['dirasakan']}")
 
 if __name__ == "__main__":
     result = ekstrasi_data()
